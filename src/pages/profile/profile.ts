@@ -5,12 +5,6 @@ import { ClienteDTO } from '../../models/cliente.DTO';
 import { ClienteService } from '../../services/domain/cliente.service';
 import { StorageService } from '../../services/storage.service';
 
-/**
- * Generated class for the ProfilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -29,22 +23,26 @@ export class ProfilePage {
   }
 
   ionViewDidLoad() {
+    this.loadData();
+  }
+
+  loadData() {
     let localUser = this.storage.getLocalUser();
-    if(localUser && localUser.email) {
+    if (localUser && localUser.email) {
       this.clienteService.findByEmail(localUser.email)
         .subscribe(response => {
-          this.cliente = response;
+          this.cliente = response as ClienteDTO;
           this.getImageIfExists();
-
         },
         error => {
-          if(error.status == 403) {
+          if (error.status == 403) {
             this.navCtrl.setRoot('HomePage');
           }
         });
-    }else{
-      this.navCtrl.setRoot('HomePage');
     }
+    else {
+      this.navCtrl.setRoot('HomePage');
+    }    
   }
 
   getImageIfExists() {
