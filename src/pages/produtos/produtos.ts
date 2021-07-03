@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProdutoDTO } from '../../models/produto.dto';
 import { ProdutoService } from '../../services/domain/produto.service';
+import { API_CONFIG } from '../../config/api.config';
 
 
 @IonicPage()
@@ -25,6 +26,18 @@ export class ProdutosPage {
          this.items = response['content'];
       },
       error => {});  
-    }    
+    } 
+    
+    loadImageUrls(start: number, end: number) {
+      for (var i=start; i<=end; i++) {
+        let item = this.items[i];
+        this.produtoService.getSmallImageFromBucket(item.id)
+          .subscribe(response => {
+            item.imageUrl = `${API_CONFIG.bucketBaseUrl}/prod${item.id}-small.jpg`;
+          },
+          error => {});
+      }
+    }  
+  
 
 }
