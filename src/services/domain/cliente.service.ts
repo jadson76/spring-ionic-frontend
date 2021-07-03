@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs/Rx";
 import { API_CONFIG } from "../../config/api.config";
 import { StorageService } from "../storage.service";
-import { ClienteDTO } from "../../models/cliente.DTO";
+import { ClienteDTO } from "../../models/cliente.dto";
 import { ImageUtilService } from "../image-util.service";
 
 @Injectable()
